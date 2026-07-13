@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Question of the Day</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: var(--hub-bg, #f9fafb);
+      --surface: var(--hub-surface, #ffffff);
+      --border: var(--hub-border, #e5e7eb);
+      --border-mid: var(--hub-border, #d1d5db);
+      --text: var(--hub-text, #111827);
+      --muted: var(--hub-text-muted, #6b7280);
+      --accent: var(--hub-primary, #111827);
+      --accent-hover: var(--hub-primary-hover, #374151);
+      --accent-fg: var(--hub-primary-fg, #ffffff);
+      --radius: var(--hub-radius, 10px);
+      --green: #047857; --green-soft: #d1fae5;
+      --amber: #b45309; --amber-soft: #fef3c7;
+      --red: #b91c1c; --red-soft: #fee2e2;
+      --shadow: 0 1px 3px rgba(15, 23, 42, .07);
+    }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: var(--hub-font, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+      font-size: var(--hub-font-size, 15px); line-height: 1.5;
+    }
+    .app { max-width: 640px; margin: 0 auto; padding: 16px; }
+    .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    h1 { font-size: 1.35rem; line-height: 1.2; }
+    h2 { font-size: .95rem; }
+    .muted { color: var(--muted); }
+    .tiny { font-size: .78rem; }
+    .stack { display: grid; gap: 8px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      border: 1px solid transparent; border-radius: 8px; padding: 8px 12px;
+      font: inherit; font-size: .86rem; font-weight: 700; cursor: pointer;
+      min-height: 38px; background: var(--accent); color: var(--accent-fg);
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn:disabled { opacity: .48; cursor: default; }
+    .btn-ghost { background: transparent; color: var(--text); border-color: var(--border-mid); }
+    .btn-ghost:hover { background: rgba(127,127,127,.08); }
+    .btn-sm { min-height: 31px; padding: 5px 10px; font-size: .78rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
+    .q-card { text-align: center; padding: 26px 20px; }
+    .q-text { font-size: 1.18rem; font-weight: 800; line-height: 1.4; margin: 6px 0 4px; }
+    .q-meta { color: var(--muted); font-size: .78rem; }
+    .answer-box { display: grid; gap: 8px; margin-top: 16px; text-align: left; }
+    textarea {
+      width: 100%; border: 1.5px solid var(--border-mid); border-radius: 8px;
+      padding: 10px 12px; font: inherit; background: var(--surface); color: var(--text);
+      min-height: 70px; resize: vertical;
+    }
+    textarea:focus, input:focus { outline: none; border-color: var(--accent); }
+    .avatars { display: flex; justify-content: center; gap: 5px; margin-top: 14px; flex-wrap: wrap; }
+    .avatar {
+      width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center;
+      justify-content: center; font-size: .78rem; font-weight: 800; color: #fff; opacity: .35;
+    }
+    .avatar.answered { opacity: 1; }
+    .answer {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 11px 13px; box-shadow: var(--shadow);
+    }
+    .answer .who { font-size: .76rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+    .answer .what { margin-top: 2px; font-size: .95rem; }
+    .sealed-note {
+      background: var(--amber-soft); color: var(--amber); border-radius: 8px;
+      padding: 9px 12px; font-size: .84rem; margin-top: 14px;
+    }
+    .revealed-note {
+      background: var(--green-soft); color: var(--green); border-radius: 8px;
+      padding: 9px 12px; font-size: .84rem; margin: 14px 0 10px;
+    }
+    .section-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 20px 2px 8px; }
+    .history-q { font-weight: 700; font-size: .9rem; }
+    .empty { color: var(--muted); text-align: center; padding: 30px 16px; }
+    .error { background: var(--red-soft); color: var(--red); padding: 9px 12px; border-radius: 8px; margin-bottom: 10px; font-size: .86rem; }
+    .custom-row { display: flex; gap: 6px; margin-top: 10px; }
+    .custom-row input { flex: 1; border: 1.5px solid var(--border-mid); border-radius: 8px; padding: 9px 11px; font: inherit; background: var(--surface); color: var(--text); }
+    details { margin-top: 10px; }
+    summary { cursor: pointer; color: var(--muted); font-size: .82rem; font-weight: 700; }
+  </style>
+  <base href="/run/question-of-the-day/">
+</head>
+<body>
+<div class="app">
+  <div id="root" class="empty">Loading…</div>
+</div>
+
+<script type="module">
+import { esc, memberColor, initial } from "/hub-sdk.js";
+import {
+  pickQuestion, isoDay, endOfDayIso, isReleased, sortedRounds, roundForDay,
+  answeredMemberIds, everyoneAnswered,
+} from "./logic.js";
+
+const CONTEXT = window.__CONTEXT_URL ?? "";
+const DB = window.__DB_URL ?? "";
+const APP_ID = window.__APP_ID ?? "question-of-the-day";
+const HUB_MEMBER = window.__CURRENT_MEMBER ?? null;
+
+let members = [];
+let memberMap = new Map();
+let me = null;
+let rounds = [];
+let answers = [];   // only rows the hub lets *me* see (mine + released rounds)
+let marks = [];
+let error = "";
+
+function nowIso() { return new Date().toISOString(); }
+function memberName(id) { return memberMap.get(id)?.name ?? "Someone"; }
+
+/* ── DB helper ─────────────────────────────────────────────────────────────── */
+async function db(sql, params = []) {
+  if (!DB) return { rows: [] };
+  const res = await fetch(DB, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sql, params }),
+  });
+  const json = await res.json();
+  if (json.error) throw new Error(json.error);
+  return json;
+}
+
+/* ── Loading ───────────────────────────────────────────────────────────────── */
+async function loadMembers() {
+  if (!CONTEXT) {
+    members = [
+      { id: "demo-1", name: "Alex", role: "adult" },
+      { id: "demo-2", name: "Jordan", role: "adult" },
+      { id: "demo-3", name: "Casey", role: "child" },
+    ];
+  } else {
+    try {
+      const res = await fetch(`${CONTEXT}?keys=family.members`);
+      members = ((await res.json())["family.members"]) ?? [];
+    } catch { members = []; }
+  }
+  memberMap = new Map(members.map((m) => [m.id, m]));
+  me = HUB_MEMBER ?? members[0] ?? { id: "guest", name: "Guest", role: "adult" };
+}
+
+async function loadData() {
+  if (!DB) {
+    const today = isoDay();
+    rounds = [{ id: "r1", question: "What made you laugh today?", question_date: today, reveal_at: endOfDayIso(today), status: "open", source: "deck", visibility: "everyone", created_by: "demo-1", created_at: nowIso() }];
+    answers = [{ id: "a1", round_id: "r1", member_id: "demo-1", answer_text: "Casey's impression of the cat.", created_at: nowIso() }];
+    marks = [{ id: "m1", round_id: "r1", member_id: "demo-1", created_at: nowIso() }];
+    return;
+  }
+  const [r, a, m] = await Promise.all([
+    db("SELECT id, question, question_date, reveal_at, status, source, visibility, created_by, created_at FROM app_question_of_the_day__rounds ORDER BY question_date DESC LIMIT 60"),
+    // The hub's sealed_until policy filters this to my own answers plus
+    // answers of released rounds — no client-side gating needed.
+    db("SELECT id, round_id, member_id, answer_text, created_at FROM app_question_of_the_day__answers LIMIT 800"),
+    db("SELECT id, round_id, member_id, created_at FROM app_question_of_the_day__marks LIMIT 800"),
+  ]);
+  rounds = r.rows ?? [];
+  answers = a.rows ?? [];
+  marks = m.rows ?? [];
+}
+
+async function refresh() {
+  error = "";
+  try {
+    await Promise.all([loadMembers(), loadData()]);
+    await autoCloseIfDone();
+    render();
+  } catch (e) { error = e.message; render(); }
+}
+
+function showError(msg) { error = msg; render(); }
+
+/* ── Mutations ─────────────────────────────────────────────────────────────── */
+async function createRound(question, source) {
+  const today = isoDay();
+  const row = {
+    id: crypto.randomUUID(), question, question_date: today,
+    reveal_at: endOfDayIso(today), status: "open", source,
+    visibility: "everyone", created_by: me.id, created_at: nowIso(),
+  };
+  rounds = [row, ...rounds];
+  render();
+  try {
+    await db(
+      "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+      [row.id, row.question, row.question_date, row.reveal_at, row.status, row.source, row.visibility, row.created_by, row.created_at],
+    );
+    fetch("/api/activity", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "question_posted",
+        description: `${me.name} posted today's question`,
+        metadata: { deepLink: { appId: APP_ID, params: { roundId: row.id } } },
+      }),
+    }).catch(() => {});
+  } catch (e) {
+    rounds = rounds.filter((r) => r.id !== row.id);
+    showError(e.message);
+  }
+}
+
+async function submitAnswer(round, text) {
+  const now = nowIso();
+  const answer = { id: crypto.randomUUID(), round_id: round.id, member_id: me.id, answer_text: text, created_at: now };
+  const mark = { id: crypto.randomUUID(), round_id: round.id, member_id: me.id, created_at: now };
+  answers = [...answers, answer];
+  marks = [...marks, mark];
+  render();
+  try {
+    await db("INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?,?,?,?,?)",
+      [answer.id, answer.round_id, answer.member_id, answer.answer_text, answer.created_at]);
+    await db("INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?,?,?,?)",
+      [mark.id, mark.round_id, mark.member_id, mark.created_at]).catch(() => {});
+    await autoCloseIfDone();
+    render();
+  } catch (e) {
+    answers = answers.filter((a) => a.id !== answer.id);
+    marks = marks.filter((m) => m.id !== mark.id);
+    showError(e.message);
+  }
+}
+
+/** Close any open round once every member has marked answered (auto-reveal). */
+async function autoCloseIfDone() {
+  for (const round of rounds) {
+    if (round.status !== "open" || isReleased(round)) continue;
+    if (!everyoneAnswered(marks, round.id, members)) continue;
+    round.status = "closed";
+    try {
+      await db("UPDATE app_question_of_the_day__rounds SET status='closed' WHERE id=? AND status='open'", [round.id]);
+      // Re-pull answers: rows sealed a moment ago are now released.
+      const a = await db("SELECT id, round_id, member_id, answer_text, created_at FROM app_question_of_the_day__answers LIMIT 800");
+      answers = a.rows ?? answers;
+    } catch { round.status = "open"; }
+  }
+}
+
+/* ── Rendering ─────────────────────────────────────────────────────────────── */
+function renderAvatars(round) {
+  const answered = answeredMemberIds(marks, round.id);
+  return `
+    <div class="avatars">
+      ${members.map((m) => `
+        <span class="avatar ${answered.has(m.id) ? "answered" : ""}"
+              style="background:${esc(memberColor(m.id, members))}"
+              title="${esc(m.name)}${answered.has(m.id) ? " answered" : " hasn't answered yet"}">${esc(initial(m.name))}</span>`).join("")}
+    </div>`;
+}
+
+function renderAnswers(roundId) {
+  const list = answers.filter((a) => a.round_id === roundId);
+  if (!list.length) return `<div class="empty tiny">No answers were submitted.</div>`;
+  return `<div class="stack">${list.map((a) => `
+    <div class="answer">
+      <div class="who">${esc(memberName(a.member_id))}</div>
+      <div class="what">${esc(a.answer_text)}</div>
+    </div>`).join("")}</div>`;
+}
+
+function renderToday(round) {
+  if (!round) {
+    return `
+      <div class="card q-card">
+        <div class="q-meta">No question yet today</div>
+        <div class="q-text">Start today's question</div>
+        <div style="margin-top:14px">
+          <button class="btn" data-new-deck>🎲 Draw from the deck</button>
+        </div>
+        <details>
+          <summary>…or ask your own</summary>
+          <div class="custom-row">
+            <input id="custom-q" placeholder="Your question…" maxlength="200" />
+            <button class="btn btn-ghost" data-new-custom>Ask</button>
+          </div>
+        </details>
+      </div>`;
+  }
+
+  const released = isReleased(round);
+  const myAnswer = answers.find((a) => a.round_id === round.id && a.member_id === me?.id);
+  const answered = answeredMemberIds(marks, round.id);
+  return `
+    <div class="card q-card">
+      <div class="q-meta">Today · asked by ${esc(memberName(round.created_by))}</div>
+      <div class="q-text">${esc(round.question)}</div>
+      ${renderAvatars(round)}
+      ${released
+        ? `<div class="revealed-note">✨ Answers revealed</div>${renderAnswers(round.id)}`
+        : myAnswer
+          ? `<div class="sealed-note">🔒 Your answer is in. Answers unlock when everyone has answered (${answered.size}/${members.length}) or at midnight.</div>`
+          : `
+            <form class="answer-box" id="answer-form">
+              <textarea id="answer-text" placeholder="Your answer — nobody sees it until the reveal" maxlength="500"></textarea>
+              <button type="submit" class="btn">Answer</button>
+            </form>`}
+    </div>`;
+}
+
+function renderHistory() {
+  const today = isoDay();
+  const past = sortedRounds(rounds).filter((r) => r.question_date !== today);
+  if (!past.length) return "";
+  return `
+    <div class="section-head"><h2>Earlier questions</h2></div>
+    <div class="stack">
+      ${past.slice(0, 14).map((r) => `
+        <div class="card">
+          <div class="history-q">${esc(r.question)}</div>
+          <div class="tiny muted" style="margin:2px 0 8px">${esc(r.question_date)}</div>
+          ${isReleased(r) ? renderAnswers(r.id) : `<div class="tiny muted">🔒 Still sealed.</div>`}
+        </div>`).join("")}
+    </div>`;
+}
+
+function render() {
+  const root = document.getElementById("root");
+  root.className = "app-root";
+  const round = roundForDay(rounds, isoDay());
+  root.innerHTML = `
+    <div class="topbar">
+      <div>
+        <h1>💬 Question of the Day</h1>
+        <p class="muted tiny">Everyone answers in secret; answers unlock together.</p>
+      </div>
+    </div>
+    ${error ? `<div class="error">${esc(error)}</div>` : ""}
+    ${renderToday(round)}
+    ${renderHistory()}
+  `;
+  document.getElementById("answer-form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = document.getElementById("answer-text").value.trim();
+    if (!text) { document.getElementById("answer-text").focus(); return; }
+    const btn = e.target.querySelector("button");
+    if (btn) { btn.disabled = true; btn.textContent = "Sealing…"; }
+    submitAnswer(round, text).catch((err) => showError(err.message));
+  });
+}
+
+/* ── Events ────────────────────────────────────────────────────────────────── */
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("button");
+  if (!t) return;
+  if (t.hasAttribute("data-new-deck")) {
+    const q = pickQuestion(rounds.map((r) => r.question));
+    if (!q) { showError("The deck is empty — ask your own question!"); return; }
+    t.disabled = true;
+    createRound(q, "deck").catch((err) => showError(err.message));
+    return;
+  }
+  if (t.hasAttribute("data-new-custom")) {
+    const input = document.getElementById("custom-q");
+    const q = input?.value.trim();
+    if (!q) { input?.focus(); return; }
+    t.disabled = true;
+    createRound(q, "custom").catch((err) => showError(err.message));
+  }
+});
+
+refresh();
+// Sealed rounds release at midnight without a click — re-check occasionally.
+setInterval(() => { refresh(); }, 5 * 60000);
+</script>
+</body>
+</html>

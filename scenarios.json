@@ -1,0 +1,57 @@
+{
+  "scenarios": [
+    {
+      "name": "answers stay sealed from other members until the round closes, then release; one answer per member",
+      "members": { "asker": "adult", "other": "adult" },
+      "steps": [
+        {
+          "action": "db",
+          "as": "asker",
+          "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, 'What made you laugh today?', '2099-01-01', '2099-01-01T23:59:59Z', 'open', 'deck', 'everyone', ?, '2099-01-01T08:00:00Z')",
+          "params": ["round-1", "{{asker}}"],
+          "expect": { "status": 200 }
+        },
+        {
+          "action": "db",
+          "as": "asker",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, 'the cat', '2099-01-01T09:00:00Z')",
+          "params": ["ans-1", "round-1", "{{asker}}"],
+          "expect": { "status": 200 }
+        },
+        {
+          "action": "db",
+          "as": "other",
+          "sql": "SELECT id FROM app_question_of_the_day__answers",
+          "expect": { "status": 200, "rowCount": 0 }
+        },
+        {
+          "action": "db",
+          "as": "asker",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, 'second answer', '2099-01-01T09:05:00Z')",
+          "params": ["ans-dup", "round-1", "{{asker}}"],
+          "expect": { "status": 403 }
+        },
+        {
+          "action": "db",
+          "as": "other",
+          "sql": "UPDATE app_question_of_the_day__rounds SET status='closed' WHERE id = ?",
+          "params": ["round-1"],
+          "expect": { "status": 200 }
+        },
+        {
+          "action": "db",
+          "as": "other",
+          "sql": "SELECT id, answer_text FROM app_question_of_the_day__answers",
+          "expect": { "status": 200, "rowCount": 1, "rowsContain": [{ "id": "ans-1" }] }
+        },
+        {
+          "action": "db",
+          "as": "asker",
+          "sql": "UPDATE app_question_of_the_day__answers SET answer_text='edited after close' WHERE id = ?",
+          "params": ["ans-1"],
+          "expect": { "status": 403 }
+        }
+      ]
+    }
+  ]
+}
