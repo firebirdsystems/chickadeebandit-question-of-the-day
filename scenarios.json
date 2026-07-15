@@ -50,6 +50,17 @@
           "sql": "UPDATE app_question_of_the_day__answers SET answer_text='edited after close' WHERE id = ?",
           "params": ["ans-1"],
           "expect": { "status": 403 }
+        },
+        {
+          "action": "db",
+          "as": "asker",
+          "sql": "SELECT id, answer_text FROM app_question_of_the_day__answers WHERE id = ?",
+          "params": ["ans-1"],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [{ "id": "ans-1", "answer_text": "the cat" }]
+          }
         }
       ]
     }
