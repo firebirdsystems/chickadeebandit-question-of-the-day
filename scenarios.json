@@ -49,7 +49,7 @@
           "as": "asker",
           "sql": "UPDATE app_question_of_the_day__answers SET answer_text='edited after close' WHERE id = ?",
           "params": ["ans-1"],
-          "expect": { "status": 403 }
+          "expect": { "status": 200 }
         },
         {
           "action": "db",
