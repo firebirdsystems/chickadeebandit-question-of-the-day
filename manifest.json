@@ -1,5 +1,6 @@
 {
   "id": "question-of-the-day",
+  "contexts": ["household", "shared_space"],
   "name": "Question of the Day",
   "version": "1.0.0",
   "description": "One conversation-starter a day. Everyone answers in secret; the answers unlock when the whole household has weighed in — or automatically at the end of the day.",
