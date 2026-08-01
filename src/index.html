@@ -154,16 +154,33 @@ async function loadData() {
     marks = [{ id: "m1", round_id: "r1", member_id: "demo-1", created_at: nowIso() }];
     return;
   }
-  const [r, a, m] = await Promise.all([
-    db("SELECT id, question, question_date, reveal_at, status, source, visibility, created_by, created_at FROM app_question_of_the_day__rounds ORDER BY question_date DESC LIMIT 60"),
+  const r = await db("SELECT id, question, question_date, reveal_at, status, source, visibility, created_by, created_at FROM app_question_of_the_day__rounds ORDER BY question_date DESC LIMIT 60");
+  rounds = r.rows ?? [];
+  ({ answers, marks } = await loadChildrenFor(rounds));
+}
+
+/**
+ * Answers and marks for exactly the rounds we loaded.
+ *
+ * These used to be blind `LIMIT 800` reads with NO `ORDER BY`, which is an
+ * arbitrary 800 rows once the table is bigger than that — about a year for a
+ * five-person household. The consequences were silent: a revealed round rendered
+ * an arbitrary subset of its answers, and `everyoneAnswered` could miss today's
+ * marks entirely, so `autoCloseIfDone` never fired and the round never revealed.
+ * Scoping to the 60 loaded rounds bounds the read by the same window the UI
+ * actually shows, instead of by a number that ages out.
+ */
+async function loadChildrenFor(roundList) {
+  if (!roundList.length) return { answers: [], marks: [] };
+  const ids = roundList.map((r) => r.id);
+  const holes = ids.map(() => "?").join(",");
+  const [a, m] = await Promise.all([
     // The hub's sealed_until policy filters this to my own answers plus
     // answers of released rounds — no client-side gating needed.
-    db("SELECT id, round_id, member_id, answer_text, created_at FROM app_question_of_the_day__answers LIMIT 800"),
-    db("SELECT id, round_id, member_id, created_at FROM app_question_of_the_day__marks LIMIT 800"),
+    db(`SELECT id, round_id, member_id, answer_text, created_at FROM app_question_of_the_day__answers WHERE round_id IN (${holes})`, ids),
+    db(`SELECT id, round_id, member_id, created_at FROM app_question_of_the_day__marks WHERE round_id IN (${holes})`, ids),
   ]);
-  rounds = r.rows ?? [];
-  answers = a.rows ?? [];
-  marks = m.rows ?? [];
+  return { answers: a.rows ?? [], marks: m.rows ?? [] };
 }
 
 async function refresh() {
@@ -236,9 +253,12 @@ async function autoCloseIfDone() {
     round.status = "closed";
     try {
       await db("UPDATE app_question_of_the_day__rounds SET status='closed' WHERE id=? AND status='open'", [round.id]);
-      // Re-pull answers: rows sealed a moment ago are now released.
-      const a = await db("SELECT id, round_id, member_id, answer_text, created_at FROM app_question_of_the_day__answers LIMIT 800");
-      answers = a.rows ?? answers;
+      // Re-pull this round's answers: rows sealed a moment ago are now released.
+      const a = await db(
+        "SELECT id, round_id, member_id, answer_text, created_at FROM app_question_of_the_day__answers WHERE round_id = ?",
+        [round.id],
+      );
+      answers = [...answers.filter((x) => x.round_id !== round.id), ...(a.rows ?? [])];
     } catch { round.status = "open"; }
   }
 }
