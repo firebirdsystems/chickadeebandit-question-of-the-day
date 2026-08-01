@@ -72,6 +72,13 @@
     "marks": { "column": "member_id", "on_removed": "delete" }
   },
   "nav": { "label": "Question" },
+  "glance": {
+    "source": {
+      "kind": "sql",
+      "query": "SELECT question AS title FROM app_question_of_the_day__rounds WHERE question_date = :today AND status = 'open' ORDER BY created_at DESC LIMIT 1"
+    },
+    "display": { "template": "list", "title": "title" }
+  },
   "resource_limits": {
     "max_db_bytes": 52428800
   }
