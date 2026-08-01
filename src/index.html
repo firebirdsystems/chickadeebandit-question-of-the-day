@@ -84,6 +84,13 @@
     .custom-row input { flex: 1; border: 1.5px solid var(--border-mid); border-radius: 8px; padding: 9px 11px; font: inherit; background: var(--surface); color: var(--text); }
     details { margin-top: 10px; }
     summary { cursor: pointer; color: var(--muted); font-size: .82rem; font-weight: 700; }
+    .search-row { margin-bottom: 12px; }
+    .search-input {
+      width: 100%; border: 1.5px solid var(--border-mid, var(--border, #d1d5db));
+      border-radius: 8px; padding: 9px 11px; font: inherit;
+      background: var(--surface, var(--card, #fff)); color: var(--text, inherit);
+    }
+    .search-input:focus { outline: none; border-color: var(--accent, #6366f1); }
   </style>
   <base href="/run/question-of-the-day/">
 </head>
@@ -93,10 +100,10 @@
 </div>
 
 <script type="module">
-import { esc, memberColor, initial } from "/hub-sdk.js";
+import { esc, memberColor, initial, searchMatch } from "/hub-sdk.js";
 import {
   pickQuestion, isoDay, endOfDayIso, isReleased, sortedRounds, roundForDay,
-  answeredMemberIds, everyoneAnswered,
+  answeredMemberIds, everyoneAnswered, searchableFields,
 } from "./logic.js";
 
 const CONTEXT = window.__CONTEXT_URL ?? "";
@@ -108,6 +115,7 @@ let members = [];
 let memberMap = new Map();
 let me = null;
 let rounds = [];
+let searchQ = "";       // in-app search (see logic.js searchableFields)
 let answers = [];   // only rows the hub lets *me* see (mine + released rounds)
 let marks = [];
 let error = "";
@@ -328,17 +336,30 @@ function renderHistory() {
   const today = isoDay();
   const past = sortedRounds(rounds).filter((r) => r.question_date !== today);
   if (!past.length) return "";
+  // Unsearched the history shows a fortnight; a search reaches all of it.
+  const shown = searchQ ? past.filter((r) => searchMatch(searchQ, searchableFields(r))) : past.slice(0, 14);
   return `
     <div class="section-head"><h2>Earlier questions</h2></div>
+    <div class="search-row"><input id="search" class="search-input" type="search" placeholder="Search earlier questions…" aria-label="Search earlier questions" value="${esc(searchQ)}" /></div>
     <div class="stack">
-      ${past.slice(0, 14).map((r) => `
+      ${shown.length ? shown.map((r) => `
         <div class="card">
           <div class="history-q">${esc(r.question)}</div>
           <div class="tiny muted" style="margin:2px 0 8px">${esc(r.question_date)}</div>
           ${isReleased(r) ? renderAnswers(r.id) : `<div class="tiny muted">🔒 Still sealed.</div>`}
-        </div>`).join("")}
+        </div>`).join("") : `<div class="card"><div class="tiny muted">No questions match "${esc(searchQ)}".</div></div>`}
     </div>`;
 }
+
+// render() rewrites the whole view, so put the caret back after typing.
+document.addEventListener("input", (e) => {
+  if (e.target.id !== "search") return;
+  searchQ = e.target.value;
+  const caret = e.target.selectionStart;
+  render();
+  const next = document.getElementById("search");
+  if (next) { next.focus(); next.setSelectionRange(caret, caret); }
+});
 
 function render() {
   const root = document.getElementById("root");

@@ -104,3 +104,12 @@ export function everyoneAnswered(marks, roundId, members) {
   const answered = answeredMemberIds(marks, roundId);
   return members.every((m) => answered.has(m.id));
 }
+
+/**
+ * Fields the in-app search matches against (see hub-sdk `searchMatch`).
+ * Only the last fortnight of questions is rendered, so search is the
+ * only way back to an older one.
+ */
+export function searchableFields(item) {
+  return [item.question, item.question_date];
+}

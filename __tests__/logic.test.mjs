@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   DECK, pickQuestion, isoDay, endOfDayIso, isReleased, sortedRounds,
-  roundForDay, answeredMemberIds, everyoneAnswered,
+  roundForDay, answeredMemberIds, everyoneAnswered, searchableFields,
 } from "../src/logic.js";
 
 describe("pickQuestion", () => {
@@ -71,5 +71,13 @@ describe("marks", () => {
     expect(everyoneAnswered(marks, "r1", members)).toBe(false);
     expect(everyoneAnswered([...marks, { round_id: "r1", member_id: "b" }], "r1", members)).toBe(true);
     expect(everyoneAnswered(marks, "r1", [])).toBe(false);
+  });
+});
+
+describe("searchableFields", () => {
+  it("matches on the question text and its date", () => {
+    const fields = searchableFields({ question: "Best holiday ever?", question_date: "2026-03-04" });
+    expect(fields).toContain("Best holiday ever?");
+    expect(fields).toContain("2026-03-04");
   });
 });
