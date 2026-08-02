@@ -110,6 +110,20 @@ const CONTEXT = window.__CONTEXT_URL ?? "";
 const DB = window.__DB_URL ?? "";
 const APP_ID = window.__APP_ID ?? "question-of-the-day";
 const HUB_MEMBER = window.__CURRENT_MEMBER ?? null;
+const EVENTS = window.__EVENTS_URL ?? "";
+
+async function publishEvent(type, subjectId, payload = {}) {
+  if (!EVENTS) return;
+  try {
+    await fetch(EVENTS, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type, subject_id: subjectId, payload }),
+    });
+  } catch {
+    // The row is already written; a failed publish is not fatal.
+  }
+}
 
 let members = [];
 let memberMap = new Map();
@@ -226,6 +240,13 @@ async function createRound(question, source) {
         metadata: { deepLink: { appId: APP_ID, params: { roundId: row.id } } },
       }),
     }).catch(() => {});
+    // The question is household-visible by design; the sealed ANSWERS never
+    // travel on the bus.
+    await publishEvent("qotd.question_posted", row.id, {
+      question: row.question,
+      question_date: row.question_date,
+      posted_by: row.created_by,
+    });
   } catch (e) {
     rounds = rounds.filter((r) => r.id !== row.id);
     showError(e.message);
@@ -260,7 +281,16 @@ async function autoCloseIfDone() {
     if (!everyoneAnswered(marks, round.id, members)) continue;
     round.status = "closed";
     try {
-      await db("UPDATE app_question_of_the_day__rounds SET status='closed' WHERE id=? AND status='open'", [round.id]);
+      // Every client runs this loop, so the UPDATE is guarded on status='open'
+      // and only the one that actually flipped the row (changed > 0) publishes
+      // — otherwise the reveal would fire once per member watching.
+      const res = await db("UPDATE app_question_of_the_day__rounds SET status='closed' WHERE id=? AND status='open'", [round.id]);
+      if (res?.changed) {
+        await publishEvent("qotd.answers_revealed", round.id, {
+          question: round.question,
+          question_date: round.question_date,
+        });
+      }
       // Re-pull this round's answers: rows sealed a moment ago are now released.
       const a = await db(
         "SELECT id, round_id, member_id, answer_text, created_at FROM app_question_of_the_day__answers WHERE round_id = ?",
