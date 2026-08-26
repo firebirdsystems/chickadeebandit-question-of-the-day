@@ -18,6 +18,9 @@
     "requires_approval": false
   },
   "storage": "db",
+  "preload": {
+    "rounds": {"sql": "SELECT id, question, question_date, reveal_at, status, source, visibility, created_by, created_at FROM app_question_of_the_day__rounds ORDER BY question_date DESC LIMIT 60"}
+  },
   "db_plaintext_columns": ["question_date"],
   "row_policies": {
     "rounds": {
