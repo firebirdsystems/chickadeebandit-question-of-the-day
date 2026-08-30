@@ -1,0 +1,254 @@
+{
+  "scenarios": [
+    {
+      "name": "a sealed round hides every answer, and closing it releases them all",
+      "members": {
+        "asker": "admin",
+        "answerer": "adult"
+      },
+      "steps": [
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, '2099-01-01T00:00:00Z', 'closed', 'deck', 'everyone', ?, datetime('now'))",
+          "params": [
+            "ui-r0",
+            "What did you eat for breakfast?",
+            "2026-01-04",
+            "{{asker}}"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-a0",
+            "ui-r0",
+            "{{asker}}",
+            "Cold pizza, unapologetically"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, '2099-01-01T00:00:00Z', 'open', 'deck', 'everyone', ?, datetime('now'))",
+          "params": [
+            "ui-r1",
+            "What made you laugh this week?",
+            "2026-01-05",
+            "{{asker}}"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-a1a",
+            "ui-r1",
+            "{{asker}}",
+            "The dog barking at the vacuum"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-a1b",
+            "ui-r1",
+            "{{answerer}}",
+            "A sign spelled wrong at the market"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-m1a",
+            "ui-r1",
+            "{{asker}}"
+          ]
+        },
+        {
+          "action": "open",
+          "as": "answerer"
+        },
+        {
+          "action": "waitFor",
+          "selector": "[data-testid=\"history-round\"][data-round-id=\"ui-r1\"]",
+          "as": "answerer"
+        },
+        {
+          "action": "expectCount",
+          "selector": "[data-round-id=\"ui-r0\"] [data-testid=\"answer-row\"]",
+          "count": 1,
+          "as": "answerer"
+        },
+        {
+          "action": "expectCount",
+          "selector": "[data-round-id=\"ui-r1\"] [data-testid=\"answer-row\"]",
+          "count": 0,
+          "as": "answerer"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "[data-round-id=\"ui-r1\"] [data-testid=\"history-sealed\"]",
+          "as": "answerer"
+        },
+        {
+          "action": "seedRaw",
+          "sql": "UPDATE app_question_of_the_day__rounds SET status = 'closed' WHERE id = ?",
+          "params": [
+            "ui-r1"
+          ]
+        },
+        {
+          "action": "reload",
+          "as": "answerer"
+        },
+        {
+          "action": "waitFor",
+          "selector": "[data-testid=\"history-round\"][data-round-id=\"ui-r1\"][data-sealed=\"no\"]",
+          "as": "answerer"
+        },
+        {
+          "action": "expectCount",
+          "selector": "[data-round-id=\"ui-r1\"] [data-testid=\"answer-row\"]",
+          "count": 2,
+          "as": "answerer"
+        },
+        {
+          "action": "expectText",
+          "selector": "[data-round-id=\"ui-r1\"]",
+          "text": "The dog barking at the vacuum",
+          "as": "answerer"
+        }
+      ]
+    },
+    {
+      "name": "the browser closes a round once everyone has marked, and the hub then hands over the answers",
+      "members": {
+        "asker": "admin",
+        "answerer": "adult"
+      },
+      "steps": [
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, '2099-01-01T00:00:00Z', 'open', 'deck', 'everyone', ?, datetime('now'))",
+          "params": [
+            "ui-r2",
+            "Which chore would you trade away?",
+            "2026-02-10",
+            "{{asker}}"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-a2a",
+            "ui-r2",
+            "{{asker}}",
+            "Emptying the dishwasher"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-a2b",
+            "ui-r2",
+            "{{answerer}}",
+            "Folding the laundry, obviously"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-m2a",
+            "ui-r2",
+            "{{asker}}"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-m2b",
+            "ui-r2",
+            "{{answerer}}"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, '2099-01-01T00:00:00Z', 'open', 'deck', 'everyone', ?, datetime('now'))",
+          "params": [
+            "ui-r3",
+            "What should we cook on Sunday?",
+            "2026-02-11",
+            "{{asker}}"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-a3a",
+            "ui-r3",
+            "{{asker}}",
+            "Something with too much garlic"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-a3b",
+            "ui-r3",
+            "{{answerer}}",
+            "Pancakes, for dinner"
+          ]
+        },
+        {
+          "action": "seedRaw",
+          "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, datetime('now'))",
+          "params": [
+            "ui-m3a",
+            "ui-r3",
+            "{{asker}}"
+          ]
+        },
+        {
+          "action": "open",
+          "as": "answerer"
+        },
+        {
+          "action": "waitFor",
+          "selector": "[data-testid=\"history-round\"][data-round-id=\"ui-r2\"][data-sealed=\"no\"]",
+          "as": "answerer"
+        },
+        {
+          "action": "expectCount",
+          "selector": "[data-round-id=\"ui-r2\"] [data-testid=\"answer-row\"]",
+          "count": 2,
+          "as": "answerer"
+        },
+        {
+          "action": "expectText",
+          "selector": "[data-round-id=\"ui-r2\"]",
+          "text": "Emptying the dishwasher",
+          "as": "answerer"
+        },
+        {
+          "action": "expectCount",
+          "selector": "[data-round-id=\"ui-r3\"] [data-testid=\"answer-row\"]",
+          "count": 0,
+          "as": "answerer"
+        },
+        {
+          "action": "expectVisible",
+          "selector": "[data-round-id=\"ui-r3\"] [data-testid=\"history-sealed\"]",
+          "as": "answerer"
+        }
+      ]
+    }
+  ]
+}

@@ -320,7 +320,7 @@ function renderAnswers(roundId) {
   const list = answers.filter((a) => a.round_id === roundId);
   if (!list.length) return `<div class="empty tiny">No answers were submitted.</div>`;
   return `<div class="stack">${list.map((a) => `
-    <div class="answer">
+    <div class="answer" data-testid="answer-row" data-member-id="${esc(a.member_id)}">
       <div class="who">${esc(memberName(a.member_id))}</div>
       <div class="what">${esc(a.answer_text)}</div>
     </div>`).join("")}</div>`;
@@ -376,10 +376,10 @@ function renderHistory() {
     <div class="search-row"><input id="search" class="search-input" type="search" placeholder="Search earlier questions…" aria-label="Search earlier questions" value="${esc(searchQ)}" /></div>
     <div class="stack">
       ${shown.length ? shown.map((r) => `
-        <div class="card">
+        <div class="card" data-testid="history-round" data-round-id="${esc(r.id)}" data-sealed="${isReleased(r) ? "no" : "yes"}">
           <div class="history-q">${esc(r.question)}</div>
           <div class="tiny muted" style="margin:2px 0 8px">${esc(r.question_date)}</div>
-          ${isReleased(r) ? renderAnswers(r.id) : `<div class="tiny muted">🔒 Still sealed.</div>`}
+          ${isReleased(r) ? renderAnswers(r.id) : `<div class="tiny muted" data-testid="history-sealed">🔒 Still sealed.</div>`}
         </div>`).join("") : `<div class="card"><div class="tiny muted">No questions match "${esc(searchQ)}".</div></div>`}
     </div>`;
 }
