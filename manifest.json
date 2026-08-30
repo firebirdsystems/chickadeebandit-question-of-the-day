@@ -10,7 +10,7 @@
   "tags": ["family", "questions", "conversation", "daily", "game"],
   "icon": "💬",
   "data_access": {
-    "reads": ["family.members"],
+    "reads": ["family.members", "family.app_members"],
     "writes": []
   },
   "permissions": {

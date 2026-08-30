@@ -126,6 +126,11 @@ async function publishEvent(type, subjectId, payload = {}) {
 }
 
 let members = [];
+// `family.app_members` — the members the hub would let into this app
+// (visible_to, per-member overrides, min_age, guest grants). null = unknown
+// (older hub, or the fetch failed): fall back to the roster. Only
+// everyoneAnswered reads this; naming people stays on the full roster.
+let appMembers = null;
 let memberMap = new Map();
 let me = null;
 let rounds = [];
@@ -160,9 +165,11 @@ async function loadMembers() {
     ];
   } else {
     try {
-      const res = await fetch(`${CONTEXT}?keys=family.members`);
-      members = ((await res.json())["family.members"]) ?? [];
-    } catch { members = []; }
+      const res = await fetch(`${CONTEXT}?keys=family.members,family.app_members`);
+      const json = await res.json();
+      members = json["family.members"] ?? [];
+      appMembers = json["family.app_members"] ?? null;
+    } catch { members = []; appMembers = null; }
   }
   memberMap = new Map(members.map((m) => [m.id, m]));
   me = HUB_MEMBER ?? members[0] ?? { id: "guest", name: "Guest", role: "adult" };
@@ -274,7 +281,7 @@ async function submitAnswer(round, text) {
 async function autoCloseIfDone() {
   for (const round of rounds) {
     if (round.status !== "open" || isReleased(round)) continue;
-    if (!everyoneAnswered(marks, round.id, members)) continue;
+    if (!everyoneAnswered(marks, round.id, appMembers ?? members)) continue;
     round.status = "closed";
     try {
       // Every client runs this loop, so the UPDATE is guarded on status='open'
