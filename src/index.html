@@ -231,15 +231,11 @@ async function createRound(question, source) {
       "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
       [row.id, row.question, row.question_date, row.reveal_at, row.status, row.source, row.visibility, row.created_by, row.created_at],
     );
-    fetch("/api/activity", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type: "question_posted",
-        description: `${me.name} posted today's question`,
-        metadata: { deepLink: { appId: APP_ID, params: { roundId: row.id } } },
-      }),
-    }).catch(() => {});
+    // No activity-feed write. /api/activity accepts only the hub's own closed
+    // ActivityType union (CALLER_ALLOWED_ACTIVITY_TYPES); "question_posted" is
+    // not in it, so this was refused 403 on every question and no household
+    // ever saw the entry — a fetch does not reject on 4xx, so the .catch() hid
+    // it. The event below is the sink that works.
     // The question is household-visible by design; the sealed ANSWERS never
     // travel on the bus.
     await publishEvent("qotd.question_posted", row.id, {
