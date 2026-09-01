@@ -56,6 +56,14 @@ export function pickQuestion(usedQuestions, rand = Math.random) {
 }
 
 /** Local YYYY-MM-DD for a Date. */
+/**
+ * DEVICE-local, not household-local. The UI no longer calls this — every date
+ * that is STORED or COMPARED goes through the SDK's hubToday(), which names the
+ * HOUSEHOLD's calendar day and so agrees with the hub's own surfaces (glance,
+ * kiosk, cron, `:today` in declared SQL). Kept because it is pure and tested,
+ * and still fine for presentation. Do not reach for it to build a date you are
+ * about to write or compare against a stored one.
+ */
 export function isoDay(d = new Date()) {
   const pad = (n) => String(n).padStart(2, "0");
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;

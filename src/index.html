@@ -100,9 +100,9 @@
 </div>
 
 <script type="module">
-import { esc, memberColor, initial, searchMatch } from "/hub-sdk.js";
+import { esc, memberColor, initial, searchMatch, hubToday } from "/hub-sdk.js";
 import {
-  pickQuestion, isoDay, endOfDayIso, isReleased, sortedRounds, roundForDay,
+  pickQuestion, endOfDayIso, isReleased, sortedRounds, roundForDay,
   answeredMemberIds, everyoneAnswered, searchableFields,
 } from "./logic.js";
 
@@ -177,7 +177,7 @@ async function loadMembers() {
 
 async function loadData() {
   if (!DB) {
-    const today = isoDay();
+    const today = hubToday();
     rounds = [{ id: "r1", question: "What made you laugh today?", question_date: today, reveal_at: endOfDayIso(today), status: "open", source: "deck", visibility: "everyone", created_by: "demo-1", created_at: nowIso() }];
     answers = [{ id: "a1", round_id: "r1", member_id: "demo-1", answer_text: "Casey's impression of the cat.", created_at: nowIso() }];
     marks = [{ id: "m1", round_id: "r1", member_id: "demo-1", created_at: nowIso() }];
@@ -225,7 +225,7 @@ function showError(msg) { error = msg; render(); }
 
 /* ── Mutations ─────────────────────────────────────────────────────────────── */
 async function createRound(question, source) {
-  const today = isoDay();
+  const today = hubToday();
   const row = {
     id: crypto.randomUUID(), question, question_date: today,
     reveal_at: endOfDayIso(today), status: "open", source,
@@ -366,7 +366,7 @@ function renderToday(round) {
 }
 
 function renderHistory() {
-  const today = isoDay();
+  const today = hubToday();
   const past = sortedRounds(rounds).filter((r) => r.question_date !== today);
   if (!past.length) return "";
   // Unsearched the history shows a fortnight; a search reaches all of it.
@@ -397,7 +397,7 @@ document.addEventListener("input", (e) => {
 function render() {
   const root = document.getElementById("root");
   root.className = "app-root";
-  const round = roundForDay(rounds, isoDay());
+  const round = roundForDay(rounds, hubToday());
   root.innerHTML = `
     <div class="topbar">
       <div>
