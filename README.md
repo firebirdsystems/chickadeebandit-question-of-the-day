@@ -1,5 +1,7 @@
 # Question of the Day
 
+A [Chickadee Bandit](https://chickadeebandit.com/app-library/question-of-the-day) app.
+
 One conversation-starter a day (built-in deck of 40 or ask your own). Everyone
 answers in secret; answers unlock when the whole household has answered — or
 automatically at the end of the day.
