@@ -63,6 +63,70 @@
           }
         }
       ]
+    },
+    {
+      "name": "a child's answer is stamped as the child, a parent's answer stays sealed from the child until close, and the child cannot edit it",
+      "members": { "kid": "child", "parent": "adult" },
+      "steps": [
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES ('round-1', 'Best part of today?', '2099-01-01', '2099-01-01T23:59:59Z', 'open', 'deck', 'everyone', ?, '2099-01-01T08:00:00Z')",
+          "params": ["{{parent}}"],
+          "expect": { "status": 200 }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES ('ans-parent', 'round-1', ?, 'lunch', '2099-01-01T09:00:00Z')",
+          "params": ["{{parent}}"],
+          "expect": { "status": 200 }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES ('ans-kid', 'round-1', ?, 'recess', '2099-01-01T10:00:00Z')",
+          "params": ["{{parent}}"],
+          "expect": { "status": 200 }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT id, member_id FROM app_question_of_the_day__answers",
+          "expect": { "status": 200, "rowCount": 1, "rowsContain": [{ "id": "ans-kid", "member_id": "scn-kid" }] }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_question_of_the_day__answers SET answer_text = 'hijacked' WHERE id = 'ans-parent'",
+          "expect": { "status": 200 }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id, answer_text FROM app_question_of_the_day__answers WHERE id = 'ans-parent'",
+          "expect": { "status": 200, "rowCount": 1, "rowsContain": [{ "id": "ans-parent", "answer_text": "lunch" }] }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES ('ans-kid-2', 'round-1', ?, 'second try', '2099-01-01T11:00:00Z')",
+          "params": ["{{kid}}"],
+          "expect": { "status": 403 }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "UPDATE app_question_of_the_day__rounds SET status = 'closed' WHERE id = 'round-1'",
+          "expect": { "status": 200 }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT id FROM app_question_of_the_day__answers",
+          "expect": { "status": 200, "rowCount": 2 }
+        }
+      ]
     }
   ]
 }
