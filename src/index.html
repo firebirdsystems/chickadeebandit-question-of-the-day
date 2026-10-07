@@ -100,7 +100,7 @@
 </div>
 
 <script type="module">
-import { esc, memberColor, initial, searchMatch, hubToday } from "/hub-sdk.js";
+import { esc, memberColor, initial, searchMatch, hubToday, glyph } from "/hub-sdk.js";
 import {
   pickQuestion, endOfDayIso, isReleased, sortedRounds, roundForDay,
   answeredMemberIds, everyoneAnswered, searchableFields,
@@ -333,7 +333,7 @@ function renderToday(round) {
         <div class="q-meta">No question yet today</div>
         <div class="q-text">Start today's question</div>
         <div style="margin-top:14px">
-          <button class="btn" data-new-deck>🎲 Draw from the deck</button>
+          <button class="btn" data-new-deck>${glyph("dice", { accent: "currentColor" })} Draw from the deck</button>
         </div>
         <details>
           <summary>…or ask your own</summary>
@@ -354,9 +354,9 @@ function renderToday(round) {
       <div class="q-text">${esc(round.question)}</div>
       ${renderAvatars(round)}
       ${released
-        ? `<div class="revealed-note">✨ Answers revealed</div>${renderAnswers(round.id)}`
+        ? `<div class="revealed-note">${glyph("sparkles")} Answers revealed</div>${renderAnswers(round.id)}`
         : myAnswer
-          ? `<div class="sealed-note">🔒 Your answer is in. Answers unlock when everyone has answered (${answered.size}/${members.length}) or at midnight.</div>`
+          ? `<div class="sealed-note">${glyph("lock")} Your answer is in. Answers unlock when everyone has answered (${answered.size}/${members.length}) or at midnight.</div>`
           : `
             <form class="answer-box" id="answer-form">
               <textarea id="answer-text" placeholder="Your answer — nobody sees it until the reveal" maxlength="500"></textarea>
@@ -379,7 +379,7 @@ function renderHistory() {
         <div class="card" data-testid="history-round" data-round-id="${esc(r.id)}" data-sealed="${isReleased(r) ? "no" : "yes"}">
           <div class="history-q">${esc(r.question)}</div>
           <div class="tiny muted" style="margin:2px 0 8px">${esc(r.question_date)}</div>
-          ${isReleased(r) ? renderAnswers(r.id) : `<div class="tiny muted" data-testid="history-sealed">🔒 Still sealed.</div>`}
+          ${isReleased(r) ? renderAnswers(r.id) : `<div class="tiny muted" data-testid="history-sealed">${glyph("lock")} Still sealed.</div>`}
         </div>`).join("") : `<div class="card"><div class="tiny muted">No questions match "${esc(searchQ)}".</div></div>`}
     </div>`;
 }
@@ -401,7 +401,7 @@ function render() {
   root.innerHTML = `
     <div class="topbar">
       <div>
-        <h1>💬 Question of the Day</h1>
+        <h1>${glyph("question-bubble")} Question of the Day</h1>
         <p class="muted tiny">Everyone answers in secret; answers unlock together.</p>
       </div>
     </div>
