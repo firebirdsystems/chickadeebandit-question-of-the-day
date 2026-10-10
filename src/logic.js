@@ -69,6 +69,13 @@ export function isoDay(d = new Date()) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
+/** The calendar day `days` before a YYYY-MM-DD day — SQLite's date(day, '-N days'). */
+export function daysBefore(day, days) {
+  const date = new Date(`${day}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() - days);
+  return date.toISOString().slice(0, 10);
+}
+
 /** ISO instant for local end-of-day of a YYYY-MM-DD (the auto-reveal moment). */
 export function endOfDayIso(dayIso) {
   const d = new Date(`${dayIso}T23:59:59`);

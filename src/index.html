@@ -103,7 +103,7 @@
 import { esc, memberColor, initial, searchMatch, hubToday, glyph } from "/hub-sdk.js";
 import {
   pickQuestion, endOfDayIso, isReleased, sortedRounds, roundForDay,
-  answeredMemberIds, everyoneAnswered, searchableFields,
+  answeredMemberIds, everyoneAnswered, searchableFields, daysBefore,
 } from "./logic.js";
 
 const CONTEXT = window.__CONTEXT_URL ?? "";
@@ -183,9 +183,23 @@ async function loadData() {
     marks = [{ id: "m1", round_id: "r1", member_id: "demo-1", created_at: nowIso() }];
     return;
   }
-  const r = await db("SELECT id, question, question_date, reveal_at, status, source, visibility, created_by, created_at FROM app_question_of_the_day__rounds ORDER BY question_date DESC LIMIT 60");
+  // The answers and marks of the last 60 days are asked for beside the rounds,
+  // scoped by a JOIN on the round's date rather than by the ids of rounds
+  // already in hand, so all three can come with the document. With a question
+  // a day that is every round loaded; only a round older than the window (a
+  // household that skips days) still needs the read by id that follows.
+  const today = hubToday();
+  const [r, a, m] = await Promise.all([
+    db("SELECT id, question, question_date, reveal_at, status, source, visibility, created_by, created_at FROM app_question_of_the_day__rounds ORDER BY question_date DESC LIMIT 60"),
+    db("SELECT a.id, a.round_id, a.member_id, a.answer_text, a.created_at FROM app_question_of_the_day__answers a JOIN app_question_of_the_day__rounds r ON r.id = a.round_id WHERE r.question_date >= date(?, '-60 days')", [today]),
+    db("SELECT m.id, m.round_id, m.member_id, m.created_at FROM app_question_of_the_day__marks m JOIN app_question_of_the_day__rounds r ON r.id = m.round_id WHERE r.question_date >= date(?, '-60 days')", [today]),
+  ]);
   rounds = r.rows ?? [];
-  ({ answers, marks } = await loadChildrenFor(rounds));
+  const cutoff = daysBefore(today, 60);
+  const loaded = new Set(rounds.map((round) => round.id));
+  const older = await loadChildrenFor(rounds.filter((round) => round.question_date < cutoff));
+  answers = [...(a.rows ?? []).filter((row) => loaded.has(row.round_id)), ...older.answers];
+  marks = [...(m.rows ?? []).filter((row) => loaded.has(row.round_id)), ...older.marks];
 }
 
 /**

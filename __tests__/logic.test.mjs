@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   DECK, pickQuestion, isoDay, endOfDayIso, isReleased, sortedRounds,
-  roundForDay, answeredMemberIds, everyoneAnswered, searchableFields,
+  roundForDay, answeredMemberIds, everyoneAnswered, searchableFields, daysBefore,
 } from "../src/logic.js";
 
 describe("pickQuestion", () => {
@@ -79,5 +79,21 @@ describe("searchableFields", () => {
     const fields = searchableFields({ question: "Best holiday ever?", question_date: "2026-03-04" });
     expect(fields).toContain("Best holiday ever?");
     expect(fields).toContain("2026-03-04");
+  });
+});
+
+// loadData pairs this with `date(?, '-60 days')` in the answers/marks reads: a
+// round on the wrong side of the line is read twice or not at all.
+describe("daysBefore", () => {
+  it("is SQLite's date(day, '-N days')", () => {
+    expect(daysBefore("2026-10-10", 60)).toBe("2026-08-11");
+    expect(daysBefore("2026-03-01", 1)).toBe("2026-02-28");
+    expect(daysBefore("2024-03-01", 1)).toBe("2024-02-29");
+    expect(daysBefore("2026-01-15", 60)).toBe("2025-11-16");
+    expect(daysBefore("2026-10-10", 0)).toBe("2026-10-10");
+  });
+  it("does not move with the device's zone or a clock change", () => {
+    expect(daysBefore("2026-03-09", 1)).toBe("2026-03-08");
+    expect(daysBefore("2026-11-02", 1)).toBe("2026-11-01");
   });
 });

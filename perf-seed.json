@@ -1,0 +1,1639 @@
+{
+ "seed": [
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','0 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','0 days','-5 minutes'))",
+   "params": [
+    "perf-round-00",
+    "What made you laugh today?",
+    "{{date:0}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','0 days','-4 minutes'))",
+   "params": [
+    "perf-ans-00-1",
+    "perf-round-00",
+    "{{me}}",
+    "The dog barking at the vacuum"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','0 days','-4 minutes'))",
+   "params": [
+    "perf-mark-00-1",
+    "perf-round-00",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','0 days','-3 minutes'))",
+   "params": [
+    "perf-ans-00-2",
+    "perf-round-00",
+    "{{partner}}",
+    "My teacher, she let me pick the story"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','0 days','-3 minutes'))",
+   "params": [
+    "perf-mark-00-2",
+    "perf-round-00",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','0 days','-2 minutes'))",
+   "params": [
+    "perf-ans-00-3",
+    "perf-round-00",
+    "{{child}}",
+    "Eight, no homework"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','0 days','-2 minutes'))",
+   "params": [
+    "perf-mark-00-3",
+    "perf-round-00",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+421 minutes'))",
+   "params": [
+    "perf-round-01",
+    "Which movie could you watch a hundred times?",
+    "{{date:-1}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+481 minutes'))",
+   "params": [
+    "perf-ans-01-1",
+    "perf-round-01",
+    "{{me}}",
+    "I finished my book report early"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+481 minutes'))",
+   "params": [
+    "perf-mark-01-1",
+    "perf-round-01",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+576 minutes'))",
+   "params": [
+    "perf-ans-01-2",
+    "perf-round-01",
+    "{{partner}}",
+    "How to juggle"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+576 minutes'))",
+   "params": [
+    "perf-mark-01-2",
+    "perf-round-01",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+671 minutes'))",
+   "params": [
+    "perf-ans-01-3",
+    "perf-round-01",
+    "{{adult2}}",
+    "Mushrooms"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+671 minutes'))",
+   "params": [
+    "perf-mark-01-3",
+    "perf-round-01",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+766 minutes'))",
+   "params": [
+    "perf-ans-01-4",
+    "perf-round-01",
+    "{{child}}",
+    "The woods behind the park"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','start of day','+766 minutes'))",
+   "params": [
+    "perf-mark-01-4",
+    "perf-round-01",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+422 minutes'))",
+   "params": [
+    "perf-round-02",
+    "What would you do with a completely free Saturday?",
+    "{{date:-2}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+482 minutes'))",
+   "params": [
+    "perf-ans-02-1",
+    "perf-round-02",
+    "{{me}}",
+    "Peanut butter and pickles"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+482 minutes'))",
+   "params": [
+    "perf-mark-02-1",
+    "perf-round-02",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+577 minutes'))",
+   "params": [
+    "perf-ans-02-2",
+    "perf-round-02",
+    "{{partner}}",
+    "The school trip"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+577 minutes'))",
+   "params": [
+    "perf-mark-02-2",
+    "perf-round-02",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+672 minutes'))",
+   "params": [
+    "perf-ans-02-3",
+    "perf-round-02",
+    "{{adult2}}",
+    "Drums"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+672 minutes'))",
+   "params": [
+    "perf-mark-02-3",
+    "perf-round-02",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+767 minutes'))",
+   "params": [
+    "perf-ans-02-4",
+    "perf-round-02",
+    "{{child2}}",
+    "Grandma's roast potatoes"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','start of day','+767 minutes'))",
+   "params": [
+    "perf-mark-02-4",
+    "perf-round-02",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+423 minutes'))",
+   "params": [
+    "perf-round-03",
+    "What should we name the new goldfish?",
+    "{{date:-3}}",
+    "closed",
+    "custom",
+    "everyone",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+483 minutes'))",
+   "params": [
+    "perf-ans-03-1",
+    "perf-round-03",
+    "{{me}}",
+    "Pancakes, then nothing at all"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+483 minutes'))",
+   "params": [
+    "perf-mark-03-1",
+    "perf-round-03",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+578 minutes'))",
+   "params": [
+    "perf-ans-03-2",
+    "perf-round-03",
+    "{{partner}}",
+    "A robot that finds socks"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+578 minutes'))",
+   "params": [
+    "perf-mark-03-2",
+    "perf-round-03",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+673 minutes'))",
+   "params": [
+    "perf-ans-03-3",
+    "perf-round-03",
+    "{{child}}",
+    "Be kind, be on time"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+673 minutes'))",
+   "params": [
+    "perf-mark-03-3",
+    "perf-round-03",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+768 minutes'))",
+   "params": [
+    "perf-ans-03-4",
+    "perf-round-03",
+    "{{child2}}",
+    "The one with the talking raccoon"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','start of day','+768 minutes'))",
+   "params": [
+    "perf-mark-03-4",
+    "perf-round-03",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+424 minutes'))",
+   "params": [
+    "perf-round-04",
+    "What's something you appreciate about the person to your left at dinner?",
+    "{{date:-4}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+484 minutes'))",
+   "params": [
+    "perf-ans-04-1",
+    "perf-round-04",
+    "{{me}}",
+    "Dessert first on Fridays"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+484 minutes'))",
+   "params": [
+    "perf-mark-04-1",
+    "perf-round-04",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+579 minutes'))",
+   "params": [
+    "perf-ans-04-2",
+    "perf-round-04",
+    "{{adult2}}",
+    "Rain on the tent"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+579 minutes'))",
+   "params": [
+    "perf-mark-04-2",
+    "perf-round-04",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+674 minutes'))",
+   "params": [
+    "perf-ans-04-3",
+    "perf-round-04",
+    "{{child}}",
+    "Probably the one from the car advert"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+674 minutes'))",
+   "params": [
+    "perf-mark-04-3",
+    "perf-round-04",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+769 minutes'))",
+   "params": [
+    "perf-ans-04-4",
+    "perf-round-04",
+    "{{child2}}",
+    "Sunshine at lunch"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','start of day','+769 minutes'))",
+   "params": [
+    "perf-mark-04-4",
+    "perf-round-04",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+425 minutes'))",
+   "params": [
+    "perf-round-05",
+    "What would you put in a time capsule from this week?",
+    "{{date:-5}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+485 minutes'))",
+   "params": [
+    "perf-ans-05-1",
+    "perf-round-05",
+    "{{me}}",
+    "The day at the lake"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+485 minutes'))",
+   "params": [
+    "perf-mark-05-1",
+    "perf-round-05",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+580 minutes'))",
+   "params": [
+    "perf-ans-05-2",
+    "perf-round-05",
+    "{{partner}}",
+    "My wobbly tooth"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+580 minutes'))",
+   "params": [
+    "perf-mark-05-2",
+    "perf-round-05",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+675 minutes'))",
+   "params": [
+    "perf-ans-05-3",
+    "perf-round-05",
+    "{{adult2}}",
+    "Fresh bread"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+675 minutes'))",
+   "params": [
+    "perf-mark-05-3",
+    "perf-round-05",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+770 minutes'))",
+   "params": [
+    "perf-ans-05-4",
+    "perf-round-05",
+    "{{child}}",
+    "The bike"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+770 minutes'))",
+   "params": [
+    "perf-mark-05-4",
+    "perf-round-05",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+865 minutes'))",
+   "params": [
+    "perf-ans-05-5",
+    "perf-round-05",
+    "{{child2}}",
+    "They always share"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','start of day','+865 minutes'))",
+   "params": [
+    "perf-mark-05-5",
+    "perf-round-05",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+426 minutes'))",
+   "params": [
+    "perf-round-06",
+    "What's the best meal you've ever eaten?",
+    "{{date:-6}}",
+    "closed",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+486 minutes'))",
+   "params": [
+    "perf-ans-06-1",
+    "perf-round-06",
+    "{{me}}",
+    "Books, lots of books"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+486 minutes'))",
+   "params": [
+    "perf-mark-06-1",
+    "perf-round-06",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+581 minutes'))",
+   "params": [
+    "perf-ans-06-2",
+    "perf-round-06",
+    "{{partner}}",
+    "Cold pizza, unapologetically"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+581 minutes'))",
+   "params": [
+    "perf-mark-06-2",
+    "perf-round-06",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+676 minutes'))",
+   "params": [
+    "perf-ans-06-3",
+    "perf-round-06",
+    "{{adult2}}",
+    "A cat, to ask why they knock things over"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+676 minutes'))",
+   "params": [
+    "perf-mark-06-3",
+    "perf-round-06",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+771 minutes'))",
+   "params": [
+    "perf-ans-06-4",
+    "perf-round-06",
+    "{{child}}",
+    "Jumping off the high board"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+771 minutes'))",
+   "params": [
+    "perf-mark-06-4",
+    "perf-round-06",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+866 minutes'))",
+   "params": [
+    "perf-ans-06-5",
+    "perf-round-06",
+    "{{child2}}",
+    "The moon landing"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','start of day','+866 minutes'))",
+   "params": [
+    "perf-mark-06-5",
+    "perf-round-06",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+427 minutes'))",
+   "params": [
+    "perf-round-07",
+    "What's the weirdest food combination you secretly like?",
+    "{{date:-7}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+487 minutes'))",
+   "params": [
+    "perf-ans-07-1",
+    "perf-round-07",
+    "{{me}}",
+    "Waffles with everything"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+487 minutes'))",
+   "params": [
+    "perf-mark-07-1",
+    "perf-round-07",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+582 minutes'))",
+   "params": [
+    "perf-ans-07-2",
+    "perf-round-07",
+    "{{partner}}",
+    "I would take the bins, it is the quickest"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+582 minutes'))",
+   "params": [
+    "perf-mark-07-2",
+    "perf-round-07",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+677 minutes'))",
+   "params": [
+    "perf-ans-07-3",
+    "perf-round-07",
+    "{{adult2}}",
+    "Captain Thunder"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+677 minutes'))",
+   "params": [
+    "perf-mark-07-3",
+    "perf-round-07",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+772 minutes'))",
+   "params": [
+    "perf-ans-07-4",
+    "perf-round-07",
+    "{{child}}",
+    "The Great Sock Hunt"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','start of day','+772 minutes'))",
+   "params": [
+    "perf-mark-07-4",
+    "perf-round-07",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+428 minutes'))",
+   "params": [
+    "perf-round-08",
+    "If you could rename yourself, what name would you pick?",
+    "{{date:-8}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+488 minutes'))",
+   "params": [
+    "perf-ans-08-1",
+    "perf-round-08",
+    "{{me}}",
+    "The dog barking at the vacuum"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+488 minutes'))",
+   "params": [
+    "perf-mark-08-1",
+    "perf-round-08",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+583 minutes'))",
+   "params": [
+    "perf-ans-08-2",
+    "perf-round-08",
+    "{{partner}}",
+    "My teacher, she let me pick the story"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+583 minutes'))",
+   "params": [
+    "perf-mark-08-2",
+    "perf-round-08",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+678 minutes'))",
+   "params": [
+    "perf-ans-08-3",
+    "perf-round-08",
+    "{{adult2}}",
+    "Eight, no homework"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+678 minutes'))",
+   "params": [
+    "perf-mark-08-3",
+    "perf-round-08",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+773 minutes'))",
+   "params": [
+    "perf-ans-08-4",
+    "perf-round-08",
+    "{{child2}}",
+    "Long division"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','start of day','+773 minutes'))",
+   "params": [
+    "perf-mark-08-4",
+    "perf-round-08",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+429 minutes'))",
+   "params": [
+    "perf-round-09",
+    "Best thing about the camping trip?",
+    "{{date:-9}}",
+    "closed",
+    "custom",
+    "everyone",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+489 minutes'))",
+   "params": [
+    "perf-ans-09-1",
+    "perf-round-09",
+    "{{me}}",
+    "I finished my book report early"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+489 minutes'))",
+   "params": [
+    "perf-mark-09-1",
+    "perf-round-09",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+584 minutes'))",
+   "params": [
+    "perf-ans-09-2",
+    "perf-round-09",
+    "{{partner}}",
+    "How to juggle"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+584 minutes'))",
+   "params": [
+    "perf-mark-09-2",
+    "perf-round-09",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+679 minutes'))",
+   "params": [
+    "perf-ans-09-3",
+    "perf-round-09",
+    "{{child}}",
+    "Mushrooms"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+679 minutes'))",
+   "params": [
+    "perf-mark-09-3",
+    "perf-round-09",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+774 minutes'))",
+   "params": [
+    "perf-ans-09-4",
+    "perf-round-09",
+    "{{child2}}",
+    "The woods behind the park"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','start of day','+774 minutes'))",
+   "params": [
+    "perf-mark-09-4",
+    "perf-round-09",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+430 minutes'))",
+   "params": [
+    "perf-round-10",
+    "What's the best sound in the world?",
+    "{{date:-10}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+490 minutes'))",
+   "params": [
+    "perf-ans-10-1",
+    "perf-round-10",
+    "{{me}}",
+    "Peanut butter and pickles"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+490 minutes'))",
+   "params": [
+    "perf-mark-10-1",
+    "perf-round-10",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+585 minutes'))",
+   "params": [
+    "perf-ans-10-2",
+    "perf-round-10",
+    "{{adult2}}",
+    "The school trip"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+585 minutes'))",
+   "params": [
+    "perf-mark-10-2",
+    "perf-round-10",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+680 minutes'))",
+   "params": [
+    "perf-ans-10-3",
+    "perf-round-10",
+    "{{child}}",
+    "Drums"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+680 minutes'))",
+   "params": [
+    "perf-mark-10-3",
+    "perf-round-10",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+775 minutes'))",
+   "params": [
+    "perf-ans-10-4",
+    "perf-round-10",
+    "{{child2}}",
+    "Grandma's roast potatoes"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','start of day','+775 minutes'))",
+   "params": [
+    "perf-mark-10-4",
+    "perf-round-10",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+431 minutes'))",
+   "params": [
+    "perf-round-11",
+    "What's a place nearby we've never explored but should?",
+    "{{date:-11}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+491 minutes'))",
+   "params": [
+    "perf-ans-11-1",
+    "perf-round-11",
+    "{{me}}",
+    "Pancakes, then nothing at all"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+491 minutes'))",
+   "params": [
+    "perf-mark-11-1",
+    "perf-round-11",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+586 minutes'))",
+   "params": [
+    "perf-ans-11-2",
+    "perf-round-11",
+    "{{partner}}",
+    "A robot that finds socks"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+586 minutes'))",
+   "params": [
+    "perf-mark-11-2",
+    "perf-round-11",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+681 minutes'))",
+   "params": [
+    "perf-ans-11-3",
+    "perf-round-11",
+    "{{adult2}}",
+    "Be kind, be on time"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+681 minutes'))",
+   "params": [
+    "perf-mark-11-3",
+    "perf-round-11",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+776 minutes'))",
+   "params": [
+    "perf-ans-11-4",
+    "perf-round-11",
+    "{{child}}",
+    "The one with the talking raccoon"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+776 minutes'))",
+   "params": [
+    "perf-mark-11-4",
+    "perf-round-11",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+871 minutes'))",
+   "params": [
+    "perf-ans-11-5",
+    "perf-round-11",
+    "{{child2}}",
+    "A slide and a snack bar"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','start of day','+871 minutes'))",
+   "params": [
+    "perf-mark-11-5",
+    "perf-round-11",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+432 minutes'))",
+   "params": [
+    "perf-round-12",
+    "What's something you're proud of from this week?",
+    "{{date:-12}}",
+    "closed",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+492 minutes'))",
+   "params": [
+    "perf-ans-12-1",
+    "perf-round-12",
+    "{{me}}",
+    "Dessert first on Fridays"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+492 minutes'))",
+   "params": [
+    "perf-mark-12-1",
+    "perf-round-12",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+587 minutes'))",
+   "params": [
+    "perf-ans-12-2",
+    "perf-round-12",
+    "{{partner}}",
+    "Rain on the tent"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+587 minutes'))",
+   "params": [
+    "perf-mark-12-2",
+    "perf-round-12",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+682 minutes'))",
+   "params": [
+    "perf-ans-12-3",
+    "perf-round-12",
+    "{{adult2}}",
+    "Probably the one from the car advert"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+682 minutes'))",
+   "params": [
+    "perf-mark-12-3",
+    "perf-round-12",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+777 minutes'))",
+   "params": [
+    "perf-ans-12-4",
+    "perf-round-12",
+    "{{child}}",
+    "Sunshine at lunch"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+777 minutes'))",
+   "params": [
+    "perf-mark-12-4",
+    "perf-round-12",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+872 minutes'))",
+   "params": [
+    "perf-ans-12-5",
+    "perf-round-12",
+    "{{child2}}",
+    "Paddington"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','start of day','+872 minutes'))",
+   "params": [
+    "perf-mark-12-5",
+    "perf-round-12",
+    "{{child2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+433 minutes'))",
+   "params": [
+    "perf-round-13",
+    "If you could talk to any animal, which one and why?",
+    "{{date:-13}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+493 minutes'))",
+   "params": [
+    "perf-ans-13-1",
+    "perf-round-13",
+    "{{me}}",
+    "The day at the lake"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+493 minutes'))",
+   "params": [
+    "perf-mark-13-1",
+    "perf-round-13",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+588 minutes'))",
+   "params": [
+    "perf-ans-13-2",
+    "perf-round-13",
+    "{{partner}}",
+    "My wobbly tooth"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+588 minutes'))",
+   "params": [
+    "perf-mark-13-2",
+    "perf-round-13",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+683 minutes'))",
+   "params": [
+    "perf-ans-13-3",
+    "perf-round-13",
+    "{{adult2}}",
+    "Fresh bread"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+683 minutes'))",
+   "params": [
+    "perf-mark-13-3",
+    "perf-round-13",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+778 minutes'))",
+   "params": [
+    "perf-ans-13-4",
+    "perf-round-13",
+    "{{child}}",
+    "The bike"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','start of day','+778 minutes'))",
+   "params": [
+    "perf-mark-13-4",
+    "perf-round-13",
+    "{{child}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-14 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-14 days','start of day','+434 minutes'))",
+   "params": [
+    "perf-round-14",
+    "If our house had a secret room, what should be in it?",
+    "{{date:-14}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-14 days','start of day','+494 minutes'))",
+   "params": [
+    "perf-ans-14-1",
+    "perf-round-14",
+    "{{me}}",
+    "Books, lots of books"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-14 days','start of day','+494 minutes'))",
+   "params": [
+    "perf-mark-14-1",
+    "perf-round-14",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-15 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-15 days','start of day','+435 minutes'))",
+   "params": [
+    "perf-round-15",
+    "If you could invent something, what problem would it solve?",
+    "{{date:-15}}",
+    "closed",
+    "deck",
+    "everyone",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-15 days','start of day','+495 minutes'))",
+   "params": [
+    "perf-ans-15-1",
+    "perf-round-15",
+    "{{me}}",
+    "Waffles with everything"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-15 days','start of day','+495 minutes'))",
+   "params": [
+    "perf-mark-15-1",
+    "perf-round-15",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-16 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-16 days','start of day','+436 minutes'))",
+   "params": [
+    "perf-round-16",
+    "What's something hard you're working on right now?",
+    "{{date:-16}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-16 days','start of day','+496 minutes'))",
+   "params": [
+    "perf-ans-16-1",
+    "perf-round-16",
+    "{{me}}",
+    "The dog barking at the vacuum"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-16 days','start of day','+496 minutes'))",
+   "params": [
+    "perf-mark-16-1",
+    "perf-round-16",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-17 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-17 days','start of day','+437 minutes'))",
+   "params": [
+    "perf-round-17",
+    "What's one thing you'd change about school or work, if you could?",
+    "{{date:-17}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-17 days','start of day','+497 minutes'))",
+   "params": [
+    "perf-ans-17-1",
+    "perf-round-17",
+    "{{me}}",
+    "I finished my book report early"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-17 days','start of day','+497 minutes'))",
+   "params": [
+    "perf-mark-17-1",
+    "perf-round-17",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-18 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-18 days','start of day','+438 minutes'))",
+   "params": [
+    "perf-round-18",
+    "What's a smell that instantly makes you happy?",
+    "{{date:-18}}",
+    "closed",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-18 days','start of day','+498 minutes'))",
+   "params": [
+    "perf-ans-18-1",
+    "perf-round-18",
+    "{{me}}",
+    "Peanut butter and pickles"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-18 days','start of day','+498 minutes'))",
+   "params": [
+    "perf-mark-18-1",
+    "perf-round-18",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-19 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-19 days','start of day','+439 minutes'))",
+   "params": [
+    "perf-round-19",
+    "If our pet could talk for one hour, what would it complain about?",
+    "{{date:-19}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-19 days','start of day','+499 minutes'))",
+   "params": [
+    "perf-ans-19-1",
+    "perf-round-19",
+    "{{me}}",
+    "Pancakes, then nothing at all"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-19 days','start of day','+499 minutes'))",
+   "params": [
+    "perf-mark-19-1",
+    "perf-round-19",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-20 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-20 days','start of day','+440 minutes'))",
+   "params": [
+    "perf-round-20",
+    "What should we cook for Grandpa's visit?",
+    "{{date:-20}}",
+    "open",
+    "custom",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-20 days','start of day','+500 minutes'))",
+   "params": [
+    "perf-ans-20-1",
+    "perf-round-20",
+    "{{me}}",
+    "Dessert first on Fridays"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-20 days','start of day','+500 minutes'))",
+   "params": [
+    "perf-mark-20-1",
+    "perf-round-20",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-21 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-21 days','start of day','+441 minutes'))",
+   "params": [
+    "perf-round-21",
+    "If today had a title like a book chapter, what would it be?",
+    "{{date:-21}}",
+    "closed",
+    "deck",
+    "everyone",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-21 days','start of day','+501 minutes'))",
+   "params": [
+    "perf-ans-21-1",
+    "perf-round-21",
+    "{{me}}",
+    "The day at the lake"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-21 days','start of day','+501 minutes'))",
+   "params": [
+    "perf-mark-21-1",
+    "perf-round-21",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-22 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-22 days','start of day','+442 minutes'))",
+   "params": [
+    "perf-round-22",
+    "What's your perfect breakfast?",
+    "{{date:-22}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-22 days','start of day','+502 minutes'))",
+   "params": [
+    "perf-ans-22-1",
+    "perf-round-22",
+    "{{me}}",
+    "Books, lots of books"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-22 days','start of day','+502 minutes'))",
+   "params": [
+    "perf-mark-22-1",
+    "perf-round-22",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-23 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-23 days','start of day','+443 minutes'))",
+   "params": [
+    "perf-round-23",
+    "If our family had a theme song, what would it be?",
+    "{{date:-23}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-23 days','start of day','+503 minutes'))",
+   "params": [
+    "perf-ans-23-1",
+    "perf-round-23",
+    "{{me}}",
+    "Waffles with everything"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-23 days','start of day','+503 minutes'))",
+   "params": [
+    "perf-mark-23-1",
+    "perf-round-23",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-24 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-24 days','start of day','+444 minutes'))",
+   "params": [
+    "perf-round-24",
+    "If we went anywhere on vacation tomorrow, where should we go?",
+    "{{date:-24}}",
+    "closed",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-24 days','start of day','+504 minutes'))",
+   "params": [
+    "perf-ans-24-1",
+    "perf-round-24",
+    "{{me}}",
+    "The dog barking at the vacuum"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-24 days','start of day','+504 minutes'))",
+   "params": [
+    "perf-mark-24-1",
+    "perf-round-24",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-25 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-25 days','start of day','+445 minutes'))",
+   "params": [
+    "perf-round-25",
+    "What's something you want to learn this year?",
+    "{{date:-25}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-25 days','start of day','+505 minutes'))",
+   "params": [
+    "perf-ans-25-1",
+    "perf-round-25",
+    "{{me}}",
+    "I finished my book report early"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-25 days','start of day','+505 minutes'))",
+   "params": [
+    "perf-mark-25-1",
+    "perf-round-25",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-26 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-26 days','start of day','+446 minutes'))",
+   "params": [
+    "perf-round-26",
+    "What's the bravest thing you've ever done?",
+    "{{date:-26}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-26 days','start of day','+506 minutes'))",
+   "params": [
+    "perf-ans-26-1",
+    "perf-round-26",
+    "{{me}}",
+    "Peanut butter and pickles"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-26 days','start of day','+506 minutes'))",
+   "params": [
+    "perf-mark-26-1",
+    "perf-round-26",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-27 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-27 days','start of day','+447 minutes'))",
+   "params": [
+    "perf-round-27",
+    "If you won a small prize of $100, what would you spend it on?",
+    "{{date:-27}}",
+    "closed",
+    "deck",
+    "everyone",
+    "{{adult2}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-27 days','start of day','+507 minutes'))",
+   "params": [
+    "perf-ans-27-1",
+    "perf-round-27",
+    "{{me}}",
+    "Pancakes, then nothing at all"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-27 days','start of day','+507 minutes'))",
+   "params": [
+    "perf-mark-27-1",
+    "perf-round-27",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-28 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-28 days','start of day','+448 minutes'))",
+   "params": [
+    "perf-round-28",
+    "If our family had a motto, what should it be?",
+    "{{date:-28}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-28 days','start of day','+508 minutes'))",
+   "params": [
+    "perf-ans-28-1",
+    "perf-round-28",
+    "{{me}}",
+    "Dessert first on Fridays"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-28 days','start of day','+508 minutes'))",
+   "params": [
+    "perf-mark-28-1",
+    "perf-round-28",
+    "{{me}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__rounds (id, question, question_date, reveal_at, status, source, visibility, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-29 days','start of day','+1 day','-1 second'), ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-29 days','start of day','+449 minutes'))",
+   "params": [
+    "perf-round-29",
+    "If you could have any superpower for one day, what would you do with it?",
+    "{{date:-29}}",
+    "open",
+    "deck",
+    "everyone",
+    "{{partner}}"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-29 days','start of day','+509 minutes'))",
+   "params": [
+    "perf-ans-29-1",
+    "perf-round-29",
+    "{{me}}",
+    "The day at the lake"
+   ]
+  },
+  {
+   "sql": "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-29 days','start of day','+509 minutes'))",
+   "params": [
+    "perf-mark-29-1",
+    "perf-round-29",
+    "{{me}}"
+   ]
+  }
+ ]
+}

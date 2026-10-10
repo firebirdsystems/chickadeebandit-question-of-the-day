@@ -19,7 +19,9 @@
   },
   "storage": "db",
   "preload": {
-    "rounds": {"sql": "SELECT id, question, question_date, reveal_at, status, source, visibility, created_by, created_at FROM app_question_of_the_day__rounds ORDER BY question_date DESC LIMIT 60"}
+    "rounds": {"sql": "SELECT id, question, question_date, reveal_at, status, source, visibility, created_by, created_at FROM app_question_of_the_day__rounds ORDER BY question_date DESC LIMIT 60"},
+    "recent_answers": {"sql": "SELECT a.id, a.round_id, a.member_id, a.answer_text, a.created_at FROM app_question_of_the_day__answers a JOIN app_question_of_the_day__rounds r ON r.id = a.round_id WHERE r.question_date >= date(?, '-60 days')", "params": [":today"]},
+    "recent_marks": {"sql": "SELECT m.id, m.round_id, m.member_id, m.created_at FROM app_question_of_the_day__marks m JOIN app_question_of_the_day__rounds r ON r.id = m.round_id WHERE r.question_date >= date(?, '-60 days')", "params": [":today"]}
   },
   "db_plaintext_columns": ["question_date"],
   "row_policies": {
