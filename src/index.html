@@ -91,6 +91,8 @@
       background: var(--surface, var(--card, #fff)); color: var(--text, inherit);
     }
     .search-input:focus { outline: none; border-color: var(--accent, #6366f1); }
+    .load-error { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; background: var(--hub-tint-danger, #fee2e2); color: var(--hub-tint-danger-fg, #b91c1c); font-size: 0.9rem; display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+    .load-error-retry { background: none; border: 1px solid currentColor; border-radius: 8px; padding: 5px 10px; font: inherit; font-weight: 600; color: inherit; cursor: pointer; flex-shrink: 0; }
   </style>
   <base href="/run/question-of-the-day/">
 </head>
@@ -150,8 +152,8 @@ async function db(sql, params = []) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ sql, params }),
   });
-  const json = await res.json();
-  if (json.error) throw new Error(json.error);
+  const json = await res.json().catch(() => null);
+  if (!res.ok || !json || typeof json !== "object" || json.error) throw new Error(json?.error || "Couldn’t reach the hub. Try again.");
   return json;
 }
 
@@ -163,14 +165,22 @@ async function loadMembers() {
       { id: "demo-2", name: "Jordan", role: "adult" },
       { id: "demo-3", name: "Casey", role: "child" },
     ];
-  } else {
-    try {
-      const res = await fetch(`${CONTEXT}?keys=family.members,family.app_members`);
-      const json = await res.json();
-      members = json["family.members"] ?? [];
-      appMembers = json["family.app_members"] ?? null;
-    } catch { members = []; appMembers = null; }
+    setMembers();
+    return;
   }
+  // A failed read throws, and refresh() treats it like any other failed read:
+  // the load banner on the first load, never a household with nobody in it.
+  try {
+    const res = await fetch(`${CONTEXT}?keys=family.members,family.app_members`);
+    const json = await res.json().catch(() => null);
+    if (!res.ok || !json || typeof json !== "object" || json.error) throw new Error("Couldn’t reach the hub. Try again.");
+    // The hub answers 200 and names a key it could not resolve in $errors: that read failed too.
+    if (Array.isArray(json.$errors) && (json.$errors.includes("family.members") || json.$errors.includes("family.app_members"))) throw new Error("Couldn’t reach the hub. Try again.");
+    members = json["family.members"] ?? [];
+    appMembers = json["family.app_members"] ?? null;
+  } finally { setMembers(); }
+}
+function setMembers() {
   memberMap = new Map(members.map((m) => [m.id, m]));
   me = HUB_MEMBER ?? members[0] ?? { id: "guest", name: "Guest", role: "adult" };
 }
@@ -226,13 +236,20 @@ async function loadChildrenFor(roundList) {
   return { answers: a.rows ?? [], marks: m.rows ?? [] };
 }
 
+// loadFailed is set when the first load fails and cleared when a load
+// succeeds. A later refresh that fails keeps what is on screen.
+let loaded = false, loadFailed = false;
 async function refresh() {
   error = "";
   try {
     await Promise.all([loadMembers(), loadData()]);
+    loaded = true; loadFailed = false;
     await autoCloseIfDone();
     render();
-  } catch (e) { error = e.message; render(); }
+  } catch (e) {
+    if (loaded) error = e.message; else loadFailed = true;
+    render();
+  }
 }
 
 function showError(msg) { error = msg; render(); }
@@ -419,9 +436,10 @@ function render() {
         <p class="muted tiny">Everyone answers in secret; answers unlock together.</p>
       </div>
     </div>
+    ${loadFailed ? `<div class="load-error" data-testid="load-error" role="alert"><span>Couldn’t load today’s question.</span> <button type="button" class="load-error-retry" data-testid="load-retry">Try again</button></div>` : ""}
     ${error ? `<div class="error">${esc(error)}</div>` : ""}
-    ${renderToday(round)}
-    ${renderHistory()}
+    ${loadFailed ? "" : renderToday(round)}
+    ${loadFailed ? "" : renderHistory()}
   `;
   document.getElementById("answer-form")?.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -437,6 +455,7 @@ function render() {
 document.addEventListener("click", (e) => {
   const t = e.target.closest("button");
   if (!t) return;
+  if (t.dataset.testid === "load-retry") { refresh(); return; }
   if (t.hasAttribute("data-new-deck")) {
     const q = pickQuestion(rounds.map((r) => r.question));
     if (!q) { showError("The deck is empty — ask your own question!"); return; }
