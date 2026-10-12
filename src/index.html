@@ -247,7 +247,8 @@ async function refresh() {
     await autoCloseIfDone();
     render();
   } catch (e) {
-    if (loaded) error = e.message; else loadFailed = true;
+    console.error(e);
+    if (loaded) error = "Couldn’t load the questions."; else loadFailed = true;
     render();
   }
 }
@@ -283,7 +284,8 @@ async function createRound(question, source) {
     });
   } catch (e) {
     rounds = rounds.filter((r) => r.id !== row.id);
-    showError(e.message);
+    console.error(e);
+    showError("Couldn’t post the question — try again.");
   }
 }
 
@@ -304,7 +306,8 @@ async function submitAnswer(round, text) {
   } catch (e) {
     answers = answers.filter((a) => a.id !== answer.id);
     marks = marks.filter((m) => m.id !== mark.id);
-    showError(e.message);
+    console.error(e);
+    showError("Couldn’t save your answer — try again.");
   }
 }
 
@@ -447,7 +450,7 @@ function render() {
     if (!text) { document.getElementById("answer-text").focus(); return; }
     const btn = e.target.querySelector("button");
     if (btn) { btn.disabled = true; btn.textContent = "Sealing…"; }
-    submitAnswer(round, text).catch((err) => showError(err.message));
+    submitAnswer(round, text).catch((err) => { console.error(err); showError("Couldn’t save your answer — try again."); });
   });
 }
 
@@ -460,7 +463,7 @@ document.addEventListener("click", (e) => {
     const q = pickQuestion(rounds.map((r) => r.question));
     if (!q) { showError("The deck is empty — ask your own question!"); return; }
     t.disabled = true;
-    createRound(q, "deck").catch((err) => showError(err.message));
+    createRound(q, "deck").catch((err) => { console.error(err); showError("Couldn’t post the question — try again."); });
     return;
   }
   if (t.hasAttribute("data-new-custom")) {
@@ -468,7 +471,7 @@ document.addEventListener("click", (e) => {
     const q = input?.value.trim();
     if (!q) { input?.focus(); return; }
     t.disabled = true;
-    createRound(q, "custom").catch((err) => showError(err.message));
+    createRound(q, "custom").catch((err) => { console.error(err); showError("Couldn’t post the question — try again."); });
   }
 });
 
