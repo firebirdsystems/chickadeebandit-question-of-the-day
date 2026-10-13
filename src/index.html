@@ -157,6 +157,21 @@ async function db(sql, params = []) {
   return json;
 }
 
+// Atomic multi-statement form of /api/db — D1 runs a batch transactionally, so
+// the statements land whole or not at all.
+async function dbBatch(statements) {
+  if (!DB || !statements.length) return [];
+  const res = await fetch(DB, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ statements }),
+  });
+  const json = await res.json().catch(() => null);
+  // A batch that ran answers with one result per statement; a body without them is not a write that worked.
+  if (!res.ok || !json || typeof json !== "object" || json.error || !Array.isArray(json.results)) throw new Error(json?.error || "Couldn’t reach the hub. Try again.");
+  return json.results;
+}
+
 /* ── Loading ───────────────────────────────────────────────────────────────── */
 async function loadMembers() {
   if (!CONTEXT) {
@@ -297,10 +312,16 @@ async function submitAnswer(round, text) {
   marks = [...marks, mark];
   render();
   try {
-    await db("INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?,?,?,?,?)",
-      [answer.id, answer.round_id, answer.member_id, answer.answer_text, answer.created_at]);
-    await db("INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?,?,?,?)",
-      [mark.id, mark.round_id, mark.member_id, mark.created_at]).catch(() => {});
+    // One batch: the answer and its "I answered" mark land together or not at
+    // all. The mark is what everyone else counts — an answer saved without it
+    // shows nobody that this member answered and never triggers the reveal,
+    // and the answer form is gone, so there would be no way to try again.
+    await dbBatch([
+      { sql: "INSERT INTO app_question_of_the_day__answers (id, round_id, member_id, answer_text, created_at) VALUES (?,?,?,?,?)",
+        params: [answer.id, answer.round_id, answer.member_id, answer.answer_text, answer.created_at] },
+      { sql: "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?,?,?,?)",
+        params: [mark.id, mark.round_id, mark.member_id, mark.created_at] },
+    ]);
     await autoCloseIfDone();
     render();
   } catch (e) {
