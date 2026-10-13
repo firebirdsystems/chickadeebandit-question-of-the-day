@@ -140,6 +140,7 @@ let searchQ = "";       // in-app search (see logic.js searchableFields)
 let answers = [];   // only rows the hub lets *me* see (mine + released rounds)
 let marks = [];
 let error = "";
+let answerDraft = null;   // { roundId, text } of an answer whose save failed, so the form comes back as typed
 
 function nowIso() { return new Date().toISOString(); }
 function memberName(id) { return memberMap.get(id)?.name ?? "Someone"; }
@@ -322,11 +323,13 @@ async function submitAnswer(round, text) {
       { sql: "INSERT INTO app_question_of_the_day__marks (id, round_id, member_id, created_at) VALUES (?,?,?,?)",
         params: [mark.id, mark.round_id, mark.member_id, mark.created_at] },
     ]);
+    answerDraft = null;
     await autoCloseIfDone();
     render();
   } catch (e) {
     answers = answers.filter((a) => a.id !== answer.id);
     marks = marks.filter((m) => m.id !== mark.id);
+    answerDraft = { roundId: round.id, text };
     console.error(e);
     showError("Couldn’t save your answer — try again.");
   }
@@ -414,7 +417,7 @@ function renderToday(round) {
           ? `<div class="sealed-note">${glyph("lock")} Your answer is in. Answers unlock when everyone has answered (${answered.size}/${members.length}) or at midnight.</div>`
           : `
             <form class="answer-box" id="answer-form">
-              <textarea id="answer-text" placeholder="Your answer — nobody sees it until the reveal" maxlength="500"></textarea>
+              <textarea id="answer-text" placeholder="Your answer — nobody sees it until the reveal" maxlength="500">${answerDraft?.roundId === round.id ? esc(answerDraft.text) : ""}</textarea>
               <button type="submit" class="btn">Answer</button>
             </form>`}
     </div>`;
@@ -441,6 +444,8 @@ function renderHistory() {
 
 // render() rewrites the whole view, so put the caret back after typing.
 document.addEventListener("input", (e) => {
+  // A kept draft follows later edits, so a re-render never brings back older text.
+  if (e.target.id === "answer-text" && answerDraft) answerDraft.text = e.target.value;
   if (e.target.id !== "search") return;
   searchQ = e.target.value;
   const caret = e.target.selectionStart;
