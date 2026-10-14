@@ -30,16 +30,7 @@
       "member_column": "created_by",
       "visibility_column": "visibility",
       "everyone_values": ["everyone"],
-      "write_visibility_scoped": true,
-      "retain_days": {
-        "default": 365,
-        "timestamp_column": "question_date",
-        "override_key": "question_history",
-        "dependent_tables": [
-          { "table": "answers", "foreign_key": "round_id" },
-          { "table": "marks", "foreign_key": "round_id" }
-        ]
-      }
+      "write_visibility_scoped": true
     },
     "answers": {
       "kind": "sealed_until",
@@ -71,6 +62,17 @@
       }
     }
   },
+  "retention": {
+    "rounds": {
+      "default": 365,
+      "timestamp_column": "question_date",
+      "override_key": "question_history",
+      "dependent_tables": [
+        { "table": "answers", "foreign_key": "round_id" },
+        { "table": "marks", "foreign_key": "round_id" }
+      ]
+    }
+  },
   "member_references": {
     "rounds": { "column": "created_by", "on_removed": "keep" },
     "answers": { "column": "member_id", "on_removed": "delete" },
@@ -96,8 +98,5 @@
       "query": "SELECT question AS title FROM app_question_of_the_day__rounds WHERE question_date = :today AND status = 'open' ORDER BY created_at DESC LIMIT 1"
     },
     "display": { "template": "list", "title": "title" }
-  },
-  "resource_limits": {
-    "max_db_bytes": 52428800
   }
 }
